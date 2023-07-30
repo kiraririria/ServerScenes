@@ -1,0 +1,16 @@
+[
+{
+  "modid": "serverscenes",
+  "name": "serverscenes",
+  "description": "serverscenes placeholder mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["KIRARIRIRIA.org"],
+  "credits": "Thanks, O.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
