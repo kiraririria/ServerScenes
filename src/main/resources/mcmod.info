@@ -2,14 +2,14 @@
 {
   "modid": "serverscenes",
   "name": "serverscenes",
-  "description": "serverscenes placeholder mod.",
+  "description": "serverscenes changes Blockbuster and CustomNPCs mods to change render rules",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/kiraririria/ServerScenesMod",
   "updateUrl": "",
-  "authorList": ["KIRARIRIRIA.org"],
-  "credits": "Thanks, O.",
-  "logoFile": "",
+  "authorList": ["CremanTop", "Kirari Riria"],
+  "credits": "Thanks McHorse for the help with core modding and the core mod installation snippets. Thanks to Creman for the idea and a lot of help with implementation. Thanks, O.",
+  "logoFile": "/logo.png",
   "screenshots": [],
   "dependencies": []
 }
