@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.DummyModContainer;
 
 public class SSCoreModInfo extends DummyModContainer
 {
+
     @Override
     public String getName()
     {
@@ -27,4 +28,5 @@ public class SSCoreModInfo extends DummyModContainer
     {
         return "%VERSION%";
     }
+
 }

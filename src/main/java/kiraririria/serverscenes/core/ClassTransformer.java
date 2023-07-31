@@ -13,15 +13,10 @@ public abstract class ClassTransformer
     {
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(bytes);
-
         classReader.accept(classNode, 0);
-
         this.process(name, classNode);
-
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
-
         classNode.accept(writer);
-
         return writer.toByteArray();
     }
 

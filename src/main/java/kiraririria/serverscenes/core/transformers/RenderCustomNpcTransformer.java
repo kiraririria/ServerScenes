@@ -1,56 +1,82 @@
 package kiraririria.serverscenes.core.transformers;
 
-import java.util.Iterator;
-
-import kiraririria.serverscenes.core.ClassMethodTransformer;
+import kiraririria.serverscenes.Serverscenes;
+import kiraririria.serverscenes.core.ClassTransformer;
 import kiraririria.serverscenes.core.CoreClassTransformer;
-import kiraririria.serverscenes.core.SSCoreClassTransformer;
-import kiraririria.serverscenes.core.SSCoreMod;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.VarInsnNode;
+import org.objectweb.asm.tree.*;
 
-public class RenderCustomNpcTransformer extends ClassMethodTransformer
+public class RenderCustomNpcTransformer extends ClassTransformer
 {
-    public RenderCustomNpcTransformer()
+    @Override
+    public void process(String name, ClassNode node)
     {
-        super();
-        this.setMcp("doRender", "(Lnoppes/npcs/entity/EntityCustomNpc;DDDFF)V");
-
-//        this.setMcp("setBlockState", "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z");
-//        this.setNotch("a", "(Let;Lawt;I)Z");
+        for (MethodNode method : node.methods)
+        {
+            if (method.name.equals("doRender") && method.desc.equals("(Lnoppes/npcs/entity/EntityNPCInterface;DDDFF)V"))
+            {
+                this.processDoRender(method);
+            }
+            if (method.name.equals("func_76979_b") && method.desc.equals("(Lnet/minecraft/entity/Entity;DDDFF)V"))
+            {
+                this.processShadowRender(method);
+            }
+        }
     }
 
-    @Override
-    public void processMethod(String name, MethodNode method)
+    public void processDoRender(MethodNode method)
     {
-        InsnList list = method.instructions;
-        SSCoreClassTransformer.debugInstructions(list);
-//        while (it.hasNext())
-//        {
-//            AbstractInsnNode node = it.next();
-//            if (node.getOpcode() == Opcodes.IRETURN)
-//            {
-//                i++;
-//                continue;
-//            }
-//
-//            if (i == 2)
-//            {
-//                InsnList newList = new InsnList();
-//                String desc = CoreClassTransformer.get("(Lamu;Let;Lawt;I)V", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;I)V");
-//                newList.add(new VarInsnNode(Opcodes.ALOAD, 0));
-//                newList.add(new VarInsnNode(Opcodes.ALOAD, 1));
-//                newList.add(new VarInsnNode(Opcodes.ALOAD, 2));
-//                newList.add(new VarInsnNode(Opcodes.ILOAD, 3));
-//                newList.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "mchorse/blockbuster/recording/capturing/WorldEventListener", "setBlockState", desc, false));
-//                list.insert(node, newList);
-//                System.out.println("BBCoreMod: successfully patched setBlockState!");
-//                break;
-//            }
-//        }
+        LabelNode label = this.getFirstLabel(method);
+        final String entity = CoreClassTransformer.get("Lvx;DDDFF", "Lnet/minecraft/entity/EntityCreature;DDDFF");
+        if (label != null)
+        {
+            InsnList list = new InsnList();
+            list.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 2));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 4));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 6));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 8));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 9));
+            list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "kiraririria/serverscenes/client/RenderingHandler", "isCanceledNPC", "(" + entity + ")Z", false));
+            list.add(new JumpInsnNode(Opcodes.IFEQ, label));
+            list.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 2));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 4));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 6));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 8));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 9));
+            list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "kiraririria/serverscenes/client/RenderingHandler", "renderNPC", "(" + entity + ")V", false));
+            list.add(new InsnNode(Opcodes.RETURN));
+            method.instructions.insert(list);
+            Serverscenes.log("RenderNPCInterface:doRender was changed successfully");
+        }
+    }
+
+    public void processShadowRender(MethodNode method)
+    {
+        LabelNode label = this.getFirstLabel(method);
+        final String entity = CoreClassTransformer.get("Lvg;DDDFF", "Lnet/minecraft/entity/Entity;DDDFF");
+        if (label != null)
+        {
+            InsnList list = new InsnList();
+            list.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 2));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 4));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 6));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 8));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 9));
+            list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "kiraririria/serverscenes/client/RenderingHandler", "isCanceledShadows", "(" + entity + ")Z", false));
+            list.add(new JumpInsnNode(Opcodes.IFEQ, label));
+            list.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 2));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 4));
+            list.add(new VarInsnNode(Opcodes.DLOAD, 6));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 8));
+            list.add(new VarInsnNode(Opcodes.FLOAD, 9));
+            list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "kiraririria/serverscenes/client/RenderingHandler", "renderShadows", "(" + entity + ")V", false));
+            list.add(new InsnNode(Opcodes.RETURN));
+            method.instructions.insert(list);
+            Serverscenes.log("RenderNPCInterface:func_76979_b was changed successfully");
+        }
     }
 }

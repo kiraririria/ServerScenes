@@ -1,17 +1,47 @@
 package kiraririria.serverscenes.client;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 
+/**
+ * [Called by ASM]
+ * Handle Rendering of CustomNPCs
+ * Client Side only implicitly
+ */
 public class RenderingHandler
 {
-    /*
-     * Render custom npcs [called by ASM]
-     */
-    @SideOnly(Side.CLIENT)
-    public static void doRenderCustomNPC(EntityLivingBase entity, double d, double d1, double d2, float f, float partialTicks)
+    public static boolean isCanceledNPC(EntityCreature npc, double d, double d1, double d2, float f, float f1)
     {
+        if (npc.getName().equals("Невидимка"))
+        {
+            return true;
+        }
+        if (npc.getName().equals("БЕГИ!"))
+        {
+            return !Minecraft.getMinecraft().player.isSprinting();
+        }
+        return false;
+    }
 
+    public static void renderNPC(EntityCreature npc, double d, double d1, double d2, float f, float f1)
+    {
+    }
+
+    public static boolean isCanceledShadows(Entity npc, double d, double d1, double d2, float f, float f1)
+    {
+        if (npc.getName().equals("Невидимка"))
+        {
+            return true;
+        }
+        if (npc.getName().equals("БЕГИ!"))
+        {
+            return !Minecraft.getMinecraft().player.isSprinting();
+        }
+        return false;
+    }
+
+    public static void renderShadows(Entity npc, double d, double d1, double d2, float f, float f1)
+    {
     }
 }

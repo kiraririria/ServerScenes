@@ -1,23 +1,14 @@
 package kiraririria.serverscenes.core;
 
+import kiraririria.serverscenes.Serverscenes;
 import kiraririria.serverscenes.core.transformers.RenderCustomNpcTransformer;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.LabelNode;
-import org.objectweb.asm.tree.LdcInsnNode;
-import org.objectweb.asm.tree.LineNumberNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.VarInsnNode;
+import org.objectweb.asm.tree.*;
 
 import java.util.Iterator;
 
 public class SSCoreClassTransformer extends CoreClassTransformer
 {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String RenderCustomNpcName = "noppes.npcs.client.renderer.RenderCustomNpc";
+    public static final String RenderCustomNpcName = "noppes.npcs.client.renderer.RenderNPCInterface";
 
     private RenderCustomNpcTransformer renderCustomNpcTransformer = new RenderCustomNpcTransformer();
 
@@ -26,12 +17,9 @@ public class SSCoreClassTransformer extends CoreClassTransformer
     {
         if (name.equals(RenderCustomNpcName))
         {
-            System.out.println(ANSI_GREEN + "SSCOREMOD: Transforming RenderCustomNpc class" + ANSI_RESET);
+            Serverscenes.log("<]---RenderNPCInterface---[>");
             return this.renderCustomNpcTransformer.transform(name, basicClass);
-
         }
-        //System.out.println(ANSI_GREEN  + "SS CORE MOD: name"+name+"trans"+transformedName + ANSI_RESET);
-
         return basicClass;
     }
 
