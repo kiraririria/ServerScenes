@@ -1,16 +1,28 @@
 [
 {
-  "modid": "serverscenes",
-  "name": "serverscenes",
-  "description": "ServerScenes handle Blockbuster and CustomNPCs renders to disable them for ignored players",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "https://github.com/kiraririria/ServerScenesMod",
-  "updateUrl": "",
-  "authorList": ["CremanTop", "Kirari Riria"],
-  "credits": "Thanks, McHorse, for the help with core modding and the core mod installation snippets. Thanks, Creman, for the idea and a lot of help with implementation. Thanks, O.",
-  "logoFile": "/logo.png",
-  "screenshots": [],
-  "dependencies": []
+    "modid": "ServerScenes",
+    "name": "serverscenes",
+    "description": "ServerScenes handle Blockbuster and CustomNPCs renders to disable them for ignored players",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/kiraririria/ServerScenesMod",
+    "updateUrl": "",
+    "authorList": [
+        "CremanTop",
+        "KirariRiria"
+    ],
+    "credits": "Thanks, McHorse, for the help with core modding and the core mod installation snippets. Thanks, Creman, for the idea and a lot of help with implementation. Thanks, O.",
+    "logoFile": "/logo.png",
+    "screenshots": [],
+    "requiredMods": [
+        "mclib",
+        "metamorph",
+        "blockbuster"
+    ],
+    "dependencies": [
+        "mclib",
+        "metamorph",
+        "blockbuster"
+    ]
 }
 ]

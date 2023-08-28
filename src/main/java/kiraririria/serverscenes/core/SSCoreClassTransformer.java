@@ -2,19 +2,34 @@ package kiraririria.serverscenes.core;
 
 import kiraririria.serverscenes.Serverscenes;
 import kiraririria.serverscenes.core.transformers.RenderCustomNpcTransformer;
-import org.objectweb.asm.tree.*;
+import kiraririria.serverscenes.core.transformers.RenderMorphTransformer;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.LabelNode;
+import org.objectweb.asm.tree.LdcInsnNode;
+import org.objectweb.asm.tree.LineNumberNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 import java.util.Iterator;
 
 public class SSCoreClassTransformer extends CoreClassTransformer
 {
     public static final String RenderCustomNpcName = "noppes.npcs.client.renderer.RenderNPCInterface";
-
     private RenderCustomNpcTransformer renderCustomNpcTransformer = new RenderCustomNpcTransformer();
+    private RenderMorphTransformer renderMorphTransformer = new RenderMorphTransformer();
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass)
     {
+        String regex = ".*\\bmorphs\\.[a-zA-Z]+";
+        if (name.matches(regex) && !name.contains("Abstract"))
+        {
+
+            Serverscenes.log("<]---" + name + "---[>");
+            return this.renderMorphTransformer.transform(name, basicClass);
+        }
         if (name.equals(RenderCustomNpcName))
         {
             Serverscenes.log("<]---RenderNPCInterface---[>");
@@ -22,7 +37,6 @@ public class SSCoreClassTransformer extends CoreClassTransformer
         }
         return basicClass;
     }
-
     public static void debugInstructions(InsnList list)
     {
         debugInstructions(list, Integer.MAX_VALUE);

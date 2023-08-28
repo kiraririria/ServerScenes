@@ -13,13 +13,9 @@ public class RenderingHandler
 {
     public static boolean isCanceledNPC(EntityCreature npc, double d, double d1, double d2, float f, float f1)
     {
-        if (npc.getName().equals("Невидимка"))
+        if (npc.getName().equals("Тест"))
         {
-            return true;
-        }
-        if (npc.getName().equals("БЕГИ!"))
-        {
-            return !Minecraft.getMinecraft().player.isSprinting();
+            return false;
         }
         return false;
     }
@@ -34,7 +30,7 @@ public class RenderingHandler
         {
             return true;
         }
-        if (npc.getName().equals("БЕГИ!"))
+        else if (npc.getName().equals("БЕГИ!"))
         {
             return !Minecraft.getMinecraft().player.isSprinting();
         }
