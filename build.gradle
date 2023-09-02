@@ -34,8 +34,10 @@ dependencies {
     compile files("run/libs/aperture-1.8.1-1.12.2-dev.jar")
     compile files("run/libs/blockbuster-2.6.1-1.12.2-dev.jar")
     compile files("run/libs/mclib-2.4.2-1.12.2-dev.jar")
+    compile files("run/libs/mappet-0.8-1.12.2-dev.jar")
     compile files("run/libs/metamorph-1.3.1-1.12.2-dev.jar")
     compile files("run/libs/Minema-3.7.1-1.12.2-dev.jar")
+    compile files("run/libs/CustomNPCs_1.12.2-(05Jul20).jar")
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

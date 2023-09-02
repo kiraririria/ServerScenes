@@ -4,7 +4,14 @@ import kiraririria.serverscenes.Serverscenes;
 import kiraririria.serverscenes.core.ClassTransformer;
 import kiraririria.serverscenes.core.CoreClassTransformer;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.JumpInsnNode;
+import org.objectweb.asm.tree.LabelNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 public class RenderCustomNpcTransformer extends ClassTransformer
 {
@@ -48,8 +55,9 @@ public class RenderCustomNpcTransformer extends ClassTransformer
             list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "kiraririria/serverscenes/client/RenderingHandler", "renderNPC", "(" + entity + ")V", false));
             list.add(new InsnNode(Opcodes.RETURN));
             method.instructions.insert(list);
-            Serverscenes.log("RenderNPCInterface:doRender was changed successfully");
+            Serverscenes.log("[>---doRender was changed successfully---<]");
         }
+
     }
 
     public void processShadowRender(MethodNode method)
@@ -76,7 +84,7 @@ public class RenderCustomNpcTransformer extends ClassTransformer
             list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "kiraririria/serverscenes/client/RenderingHandler", "renderShadows", "(" + entity + ")V", false));
             list.add(new InsnNode(Opcodes.RETURN));
             method.instructions.insert(list);
-            Serverscenes.log("RenderNPCInterface:func_76979_b was changed successfully");
+            Serverscenes.log("[>---renderShadow was changed successfully---<]");
         }
     }
 }

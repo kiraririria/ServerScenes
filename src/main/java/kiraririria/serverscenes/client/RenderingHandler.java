@@ -1,6 +1,5 @@
 package kiraririria.serverscenes.client;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 
@@ -15,24 +14,21 @@ public class RenderingHandler
     {
         if (npc.getName().equals("Тест"))
         {
-            return false;
+            return true;
         }
         return false;
     }
 
     public static void renderNPC(EntityCreature npc, double d, double d1, double d2, float f, float f1)
     {
+
     }
 
     public static boolean isCanceledShadows(Entity npc, double d, double d1, double d2, float f, float f1)
     {
-        if (npc.getName().equals("Невидимка"))
+        if (npc.getName().equals("Тест"))
         {
             return true;
-        }
-        else if (npc.getName().equals("БЕГИ!"))
-        {
-            return !Minecraft.getMinecraft().player.isSprinting();
         }
         return false;
     }

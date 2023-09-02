@@ -1,6 +1,8 @@
 package kiraririria.serverscenes.core;
 
 import kiraririria.serverscenes.Serverscenes;
+import kiraririria.serverscenes.core.transformers.AbstractMorphTransformer;
+import kiraririria.serverscenes.core.transformers.AbstractMorphUtilTransformer;
 import kiraririria.serverscenes.core.transformers.RenderCustomNpcTransformer;
 import kiraririria.serverscenes.core.transformers.RenderMorphTransformer;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -17,16 +19,31 @@ import java.util.Iterator;
 public class SSCoreClassTransformer extends CoreClassTransformer
 {
     public static final String RenderCustomNpcName = "noppes.npcs.client.renderer.RenderNPCInterface";
+    public static final String AbstractMorphName = "mchorse.metamorph.api.morphs.AbstractMorph";
+    public static final String AbstractMorphUtilName = "kiraririria.serverscenes.util.AbstractMorphUtil";
+
     private RenderCustomNpcTransformer renderCustomNpcTransformer = new RenderCustomNpcTransformer();
+    private AbstractMorphTransformer abstractMorphTransformer = new AbstractMorphTransformer();
+
     private RenderMorphTransformer renderMorphTransformer = new RenderMorphTransformer();
+    private AbstractMorphUtilTransformer abstractMorphUtilTransformer = new AbstractMorphUtilTransformer();
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass)
     {
         String regex = ".*\\bmorphs\\.[a-zA-Z]+";
-        if (name.matches(regex) && !name.contains("Abstract"))
+        if (name.equals(AbstractMorphUtilName))
         {
-
+            Serverscenes.log("<]---AbstractMorphUtil---[>");
+            return this.abstractMorphUtilTransformer.transform(name, basicClass);
+        }
+        if (name.equals(AbstractMorphName))
+        {
+            Serverscenes.log("<]---AbstractMorph---[>");
+            return this.abstractMorphTransformer.transform(name, basicClass);
+        }
+        if (name.matches(regex))
+        {
             Serverscenes.log("<]---" + name + "---[>");
             return this.renderMorphTransformer.transform(name, basicClass);
         }

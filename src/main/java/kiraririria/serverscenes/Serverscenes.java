@@ -10,8 +10,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class Serverscenes
 {
     public static final String MODID = "serverscenes";
-    public static final String NAME = "serverscenes";
+    public static final String NAME = "ServerScenes";
     public static final String VERSION = "1.0";
+
+    /**
+     * [Handled by ASM]
+     * Name of Morphs' Nbt tag
+     * Contains the names of players for whom the scene is rendered
+     */
+    public static final String NBT_RENDER_FOR = "renderFor";
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -28,6 +35,10 @@ public class Serverscenes
     {
     }
 
+    /**
+     * Ty krasivaya vnutri, nichego ne govori..
+     * I tantsuy pod yevrobit! I tantsuy pod yevrobit!
+     */
     public static void log(String message)
     {
         System.out.println("\u001B[35mSSCOREMOD: " + message + "\u001B[0m");
